@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #04080f;
+  --bg2: #070d1a;
+  --cyan: #4f8fff;
+  --cyan2: #2563eb;
+  --cyan-glow: rgba(79, 143, 255, 0.15);
+  --cyan-glow2: rgba(79, 143, 255, 0.4);
+  --text: #e2eaff;
+  --text-muted: #4a5e80;
+  --border: rgba(79, 143, 255, 0.2);
+  --card-bg: rgba(79, 143, 255, 0.04);
+  --font-main: 'Outfit', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-main);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cyan2);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(79, 143, 255, 0.5);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+section {
+  position: relative;
+}
+
+/* Utility */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.section-title span {
+  color: var(--cyan);
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cyan), transparent);
+  margin-top: 0.5rem;
+  border-radius: 2px;
+}
+
+/* Ambient glow blobs */
+.ambient-blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(140px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.1;
+}
+
+.blob1 {
+  width: 700px;
+  height: 700px;
+  background: #1a3aff;
+  top: -300px;
+  right: -200px;
+}
+
+.blob2 {
+  width: 500px;
+  height: 500px;
+  background: #0d2bcc;
+  bottom: 5%;
+  left: -200px;
+}

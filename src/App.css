@@ -1,0 +1,4 @@
+/* App.css - Reset vite defaults */
+#root {
+  min-height: 100vh;
+}
