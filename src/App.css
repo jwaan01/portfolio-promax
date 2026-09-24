@@ -1,4 +1,15 @@
-/* App.css - Reset vite defaults */
 #root {
   min-height: 100vh;
+}
+
+.story {
+  position: relative;
+  z-index: 1;
+  /* Clip off-screen entrance transforms without breaking position: sticky. */
+  overflow-x: clip;
+}
+
+/* Chapters sit on solid ink so the fixed WebGL grid only shows through the cover. */
+.story > .chapter {
+  background: var(--bg);
 }

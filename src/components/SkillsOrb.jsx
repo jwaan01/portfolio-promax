@@ -282,12 +282,15 @@ function SphereGroup({ nodeData }) {
     )
 }
 
-export default function SkillsOrb() {
+export default function SkillsOrb({ active = true }) {
     return (
         <Canvas
             camera={{ position: [0, 0, 7], fov: 50 }}
             style={{ width: '100%', height: '100%' }}
             gl={{ antialias: true, alpha: true }}
+            dpr={[1, 1.75]}
+            resize={{ offsetSize: true }}
+            frameloop={active ? 'always' : 'never'}
         >
             <ambientLight intensity={0.3} />
             <pointLight position={[5, 5, 5]} intensity={2.5} color="#4f8fff" />

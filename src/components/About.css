@@ -1,190 +1,203 @@
-.about {
-    padding: 8rem 0;
+.chapter {
     position: relative;
+    background: var(--bg);
 }
 
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
+/* ── Scroll-scrubbed origin text ── */
+.about-scrub {
+    position: relative;
+    height: 240vh;
 }
 
-/* Left side */
-.about-intro {
+.about-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.typing-block {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.5rem;
-    position: relative;
+    align-items: center;
     overflow: hidden;
 }
 
-.typing-block::before {
-    content: '// about.js';
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-    letter-spacing: 0.05em;
+.about-scrub-inner {
+    width: 100%;
 }
 
-.typing-text {
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    line-height: 1.8;
-    color: var(--text);
-    min-height: 7em;
+.about-scrub-head {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    margin-bottom: 2.4rem;
 }
 
-.cursor {
-    display: inline-block;
-    animation: blink 1s step-end infinite;
-    color: var(--cyan);
+.about-scrub-bar {
+    flex: 1;
+    max-width: 240px;
+    height: 1px;
+    background: rgba(226, 234, 255, 0.1);
 }
 
-@keyframes blink {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0;
-    }
+.about-scrub-bar-fill {
+    height: 100%;
+    background: var(--gold);
+    transform-origin: left center;
 }
 
-.skill-chips {
+.scrub-text {
+    font-family: var(--font-main);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 3.6vw, 3.3rem);
+    line-height: 1.28;
+    letter-spacing: -0.01em;
+    color: #fff;
+    max-width: 22em;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    column-gap: 0.26em;
 }
 
-.skill-chip {
-    padding: 0.35rem 0.85rem;
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    font-size: 0.78rem;
+.scrub-word {
+    display: inline-block;
+}
+
+.scrub-word.is-highlight {
+    font-family: var(--font-serif);
+    font-style: italic;
     font-weight: 500;
-    color: var(--cyan);
-    background: rgba(0, 229, 255, 0.05);
-    transition: all 0.2s ease;
-    cursor: default;
+    color: var(--gold);
+    font-size: 1.08em;
 }
 
-.skill-chip:hover {
-    background: rgba(0, 229, 255, 0.15);
-    border-color: var(--cyan);
-    box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+/* ── After the scrub: stats + pillars ── */
+.about-after {
+    padding-top: 6rem;
+    padding-bottom: 10rem;
 }
 
 .stats-row {
-    display: flex;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
 }
 
 .stat {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.8rem;
+    padding: 3rem 2rem;
+}
+
+.stat + .stat {
+    border-left: 1px solid var(--border-soft);
 }
 
 .stat-num {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--cyan);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(3rem, 7vw, 6rem);
     line-height: 1;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-suffix {
+    color: var(--cyan);
 }
 
 .stat-label {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    font-size: 0.62rem;
 }
 
-/* Right side */
-.about-orb {
+.pillars {
+    margin-top: 8rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
 }
 
-.orb-wrap {
-    width: 380px;
-    height: 380px;
+.pillars-label {
+    margin-bottom: 2.4rem;
+}
+
+.pillar {
     position: relative;
-    max-width: 100%;
+    display: grid;
+    grid-template-columns: 4rem 1fr auto;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 2.2rem 0;
+    transition: padding 0.6s var(--ease-out);
 }
 
-.orb-ring {
+.pillar-rule {
     position: absolute;
-    inset: -12px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    animation: ringRotate 8s linear infinite;
-    pointer-events: none;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1px;
+    background: var(--border-soft);
+    transform-origin: left center;
 }
 
-.orb-ring::before {
+.pillar:last-child::after {
     content: '';
     position: absolute;
-    width: 8px;
-    height: 8px;
-    background: var(--cyan);
-    border-radius: 50%;
-    top: -4px;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 0 12px var(--cyan);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--border-soft);
 }
 
-@keyframes ringRotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
+.pillar-name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2rem, 5.2vw, 4.6rem);
+    line-height: 1.05;
+    color: #fff;
+    transition: color 0.5s ease, transform 0.6s var(--ease-out);
 }
 
-.orb-placeholder {
-    width: 100%;
-    height: 100%;
-    background: var(--card-bg);
-    border-radius: 50%;
-    border: 1px solid var(--border);
+.pillar-field {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1rem, 1.6vw, 1.35rem);
+    color: var(--text-dim);
+    text-align: right;
+    transition: color 0.5s ease;
 }
 
-.orb-hint {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+.pillar:hover {
+    padding-left: 1.2rem;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .about-grid {
+.pillar:hover .pillar-name {
+    color: var(--gold);
+}
+
+.pillar:hover .pillar-field {
+    color: var(--text);
+}
+
+@media (max-width: 800px) {
+    .stats-row {
         grid-template-columns: 1fr;
     }
 
-    .about-orb {
-        order: -1;
+    .stat + .stat {
+        border-left: none;
+        border-top: 1px solid var(--border-soft);
     }
 
-    .orb-wrap {
-        width: 280px;
-        height: 280px;
+    .stat {
+        padding: 2rem 0;
+    }
+
+    .pillar {
+        grid-template-columns: 2.4rem 1fr;
+    }
+
+    .pillar-field {
+        grid-column: 2;
+        text-align: left;
     }
 }

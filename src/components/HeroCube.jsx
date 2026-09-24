@@ -360,12 +360,15 @@ function GridCube() {
   )
 }
 
-export default function HeroCube() {
+export default function HeroCube({ active = true }) {
   return (
     <Canvas
       camera={{ position: [0, 0, 5.5], fov: 45 }}
       style={{ width: '100%', height: '100%' }}
       gl={{ antialias: true, alpha: true }}
+      dpr={[1, 1.75]}
+      resize={{ offsetSize: true }}
+      frameloop={active ? 'always' : 'never'}
     >
       <ambientLight intensity={0.25} />
       <pointLight position={[4, 4, 4]} intensity={2} color="#4f8fff" />
