@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { CHAPTERS } from '../data/chapters'
 import { useActiveChapter } from '../hooks/useActiveChapter'
+import { useAutoScroll } from '../hooks/useAutoScroll'
 import { scrollToTarget, setScrollLocked } from '../hooks/useSmoothScroll'
 import './Navbar.css'
 
@@ -12,6 +13,7 @@ export default function Navbar({ ready }) {
     const [open, setOpen] = useState(false)
     const [hidden, setHidden] = useState(false)
     const active = useActiveChapter()
+    const auto = useAutoScroll()
     const { scrollY } = useScroll()
 
     useMotionValueEvent(scrollY, 'change', (y) => {
@@ -39,12 +41,55 @@ export default function Navbar({ ready }) {
             <motion.header
                 className="navbar"
                 initial={{ y: '-120%' }}
-                animate={{ y: ready && (!hidden || open) ? '0%' : '-120%' }}
+                animate={{ y: ready && (!hidden || open || auto.playing) ? '0%' : '-120%' }}
                 transition={{ duration: 0.8, ease: EASE }}
             >
-                <a href="#home" className="nav-logo" onClick={(e) => goTo(e, 'home')}>
-                    <span className="logo-bracket">&lt;</span>ZEROTH<span className="logo-bracket">/&gt;</span>
-                </a>
+                <div className="nav-left">
+                    <a href="#home" className="nav-logo" onClick={(e) => goTo(e, 'home')}>
+                        <span className="logo-bracket">&lt;</span>ZEROTH<span className="logo-bracket">/&gt;</span>
+                    </a>
+
+                    <div className={`autoplay ${auto.playing ? 'is-playing' : ''}`} data-autoplay-control>
+                        <button
+                            type="button"
+                            className="autoplay-btn"
+                            onClick={auto.toggle}
+                            aria-pressed={auto.playing}
+                            aria-label={auto.playing ? 'Pause autoplay' : 'Autoplay: scroll the story for me'}
+                            title={auto.playing ? 'Pause' : 'Autoplay the story'}
+                        >
+                            <span className="autoplay-icon" aria-hidden="true">
+                                {auto.playing ? (
+                                    <svg viewBox="0 0 12 12" width="10" height="10" fill="currentColor"><rect x="2" y="1.5" width="2.6" height="9" rx="0.6" /><rect x="7.4" y="1.5" width="2.6" height="9" rx="0.6" /></svg>
+                                ) : (
+                                    <svg viewBox="0 0 12 12" width="10" height="10" fill="currentColor"><path d="M3 1.6v8.8a.6.6 0 0 0 .9.5l7-4.4a.6.6 0 0 0 0-1l-7-4.4a.6.6 0 0 0-.9.5Z" /></svg>
+                                )}
+                            </span>
+                            <span className="autoplay-label">{auto.playing ? 'Playing' : 'Autoplay'}</span>
+                            {auto.playing && (
+                                <span className="autoplay-bars" aria-hidden="true">
+                                    <span /><span /><span />
+                                </span>
+                            )}
+                        </button>
+                        <AnimatePresence>
+                            {auto.playing && (
+                                <motion.button
+                                    type="button"
+                                    className="autoplay-speed"
+                                    onClick={auto.cycleSpeed}
+                                    aria-label={`Autoplay speed ${auto.speed}×, click to change`}
+                                    initial={{ opacity: 0, x: -8 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -8 }}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    {auto.speed}×
+                                </motion.button>
+                            )}
+                        </AnimatePresence>
+                    </div>
+                </div>
 
                 <span className="nav-current mono-label">
                     {CHAPTERS[active].label} · {CHAPTERS[active].title}

@@ -14,6 +14,12 @@ export function scrollToTarget(target, options = {}) {
     }
 }
 
+/** Jump to an exact scroll position this frame (no easing). */
+export function setScrollImmediate(y) {
+    if (lenisInstance) lenisInstance.scrollTo(y, { immediate: true, force: true })
+    else window.scrollTo(0, y)
+}
+
 /** Freeze page scrolling (e.g. while a full-screen menu is open). */
 export function setScrollLocked(locked) {
     if (lenisInstance) {
