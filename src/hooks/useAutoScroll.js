@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { setScrollImmediate } from './useSmoothScroll'
 
-export const AUTO_SPEEDS = [0.5, 1, 2]
+export const AUTO_SPEEDS = [0.5, 1, 2, 3]
 // Viewport heights per second at 1×: slow enough to let every scrubbed scene play out.
 const BASE_VH_PER_SECOND = 0.13
 
