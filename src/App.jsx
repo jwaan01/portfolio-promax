@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, MotionConfig } from 'framer-motion'
 import './App.css'
-import NodeBackground from './components/NodeBackground'
 import Preloader from './components/Preloader'
 import FilmOverlay from './components/FilmOverlay'
 import Cursor from './components/Cursor'
@@ -37,7 +36,6 @@ export default function App() {
 
             <div className="ambient-blob blob1" />
             <div className="ambient-blob blob2" />
-            <NodeBackground />
 
             <FilmOverlay />
             <Cursor />

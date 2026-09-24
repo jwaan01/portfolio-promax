@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer'
 import { PROFILE, TAGLINES } from '../data/content'
 import './Hero.css'
 
-const HeroCube = lazy(() => import('./HeroCube'))
+const HeroGalaxy = lazy(() => import('./HeroGalaxy'))
 
 const EASE = [0.22, 1, 0.36, 1]
 
@@ -66,8 +66,7 @@ export default function Hero({ ready }) {
     const { ref: viewRef, inView } = useInView({ threshold: 0 })
     const { scrollYProgress: p } = useScroll({ target: ref, offset: ['start start', 'end end'] })
 
-    const cubeScale = useTransform(p, [0, 1], [1, 3.4])
-    const cubeOpacity = useTransform(p, [0.55, 0.95], [1, 0])
+    const galaxyOpacity = useTransform(p, [0.8, 1], [1, 0])
     const titleY = useTransform(p, [0, 0.6], ['0%', '-40%'])
     const titleScale = useTransform(p, [0, 0.6], [1, 0.82])
     const titleOpacity = useTransform(p, [0.15, 0.55], [1, 0])
@@ -79,17 +78,16 @@ export default function Hero({ ready }) {
     return (
         <section className="hero" id="home" ref={ref}>
             <div className="hero-sticky" ref={viewRef}>
-                <motion.div className="hero-cube" style={{ scale: cubeScale, opacity: cubeOpacity }}>
+                <motion.div className="hero-galaxy" style={{ opacity: galaxyOpacity }}>
                     <motion.div
-                        className="hero-cube-inner"
-                        initial={{ opacity: 0, scale: 0.6 }}
-                        animate={ready ? { opacity: 1, scale: 1 } : {}}
-                        transition={{ duration: 2, ease: EASE, delay: 0.2 }}
+                        className="hero-galaxy-inner"
+                        initial={{ opacity: 0 }}
+                        animate={ready ? { opacity: 1 } : {}}
+                        transition={{ duration: 1.6, ease: EASE }}
                     >
                         <Suspense fallback={null}>
-                            <HeroCube active={inView} />
+                            <HeroGalaxy active={inView} ready={ready} progress={p} />
                         </Suspense>
-                        <div className="cube-glow-ring" />
                     </motion.div>
                 </motion.div>
 
@@ -125,7 +123,7 @@ export default function Hero({ ready }) {
                     <motion.h1 className="hero-name" style={{ letterSpacing: titleSpread }}>
                         <RisingLine ready={ready} delay={0.45}>Huynh Gia</RisingLine>
                         <RisingLine ready={ready} delay={0.58}>
-                            <span className="hero-name-outline">Quan</span>
+                            <span className="hero-name-gold">Quan</span>
                         </RisingLine>
                     </motion.h1>
                     <span className="hero-handle">
@@ -172,7 +170,6 @@ export default function Hero({ ready }) {
                         animate={ready ? { opacity: 1 } : {}}
                         transition={{ duration: 1, delay: 1.6 }}
                     >
-                        <span className="mono-label">Turn the page</span>
                         <div className="scroll-line" />
                     </motion.div>
                 </motion.div>

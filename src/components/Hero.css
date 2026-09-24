@@ -8,40 +8,26 @@
     top: 0;
     height: 100vh;
     overflow: hidden;
+    background: radial-gradient(ellipse 80% 70% at 50% 45%, #0a1430 0%, #050a18 45%, var(--bg) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* ── Galaxy cube behind the title ── */
-.hero-cube {
+/* ── Particle galaxy behind the title ── */
+.hero-galaxy,
+.hero-galaxy-inner {
     position: absolute;
     inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     pointer-events: none;
-    will-change: transform, opacity;
 }
 
-.hero-cube-inner {
-    position: relative;
-    width: min(600px, 95vw);
-    height: min(600px, 95vw);
-}
-
-.cube-glow-ring {
+.hero-galaxy::after {
+    /* Soft dark pool behind the title so it always reads over the bright core. */
+    content: '';
     position: absolute;
-    inset: 10%;
-    border-radius: 50%;
-    background: radial-gradient(ellipse at center, rgba(79, 143, 255, 0.2) 0%, transparent 70%);
-    pointer-events: none;
-    animation: orbitPulse 4s ease-in-out infinite;
-}
-
-@keyframes orbitPulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(0.92); }
+    inset: 0;
+    background: radial-gradient(ellipse 55% 35% at 50% 48%, rgba(3, 6, 12, 0.35), transparent 70%);
 }
 
 /* ── Title ── */
@@ -71,17 +57,19 @@
 .hero-name {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(3rem, 12vw, 11rem);
+    font-size: clamp(3rem, min(11vw, 19vh), 10.5rem);
     line-height: 0.92;
     color: #fff;
     text-transform: uppercase;
-    text-shadow: 0 0 60px rgba(79, 143, 255, 0.35);
+    /* Glow lives on the heading, outside the reveal masks, so it isn't clipped into a box. */
+    filter: drop-shadow(0 0 32px rgba(79, 143, 255, 0.3));
 }
 
-.hero-name-outline {
+.hero-name-gold {
+    background: linear-gradient(180deg, #fff6df 0%, #f0d392 35%, #d9b56c 65%, #9f7a38 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
     color: transparent;
-    -webkit-text-stroke: 1.5px rgba(226, 234, 255, 0.85);
-    text-shadow: none;
 }
 
 /* ── Book-jacket corners ── */
@@ -191,13 +179,9 @@
     gap: 0.6rem;
 }
 
-.hero-scroll-inner .mono-label {
-    font-size: 0.58rem;
-}
-
 .scroll-line {
     width: 1px;
-    height: 48px;
+    height: 36px;
     background: linear-gradient(to bottom, var(--gold), transparent);
     transform-origin: top;
     animation: scrollLine 2.2s var(--ease-in-out) infinite;
@@ -236,10 +220,6 @@
 
     .hero-scroll-hint {
         bottom: calc(6vh + 0.4rem);
-    }
-
-    .hero-scroll-inner .mono-label {
-        display: none;
     }
 
     .hero-meta-tr {
